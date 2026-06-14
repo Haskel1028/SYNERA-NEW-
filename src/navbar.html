@@ -1,0 +1,62 @@
+<!-- NAVBAR -->
+<nav class="fixed top-5 left-0 right-0 z-50 px-4">
+    <div class="max-w-6xl mx-auto bg-blue/50 backdrop-blur-md border border-white/5 rounded-2xl">
+        <div class="flex items-center justify-between p-3">
+            <a href="#home">
+                <div class="overflow-hidden rounded-lg">
+                    <img src="/images/logo1.png" class="h-[75px]" alt="Synera Logo">
+                </div>
+            </a>
+
+            <div class="hidden md:flex gap-8 text-sm text-gray-300">
+                <a href="#home" class="hover:text-white">Home</a>
+                <div class="relative group">
+                    <button class="hover:text-white flex items-center gap-1">
+                        About
+                        <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="absolute left-0 mt-3 w-56 bg-black/90 backdrop-blur-xl border border-white/10 rounded-xl opacity-0 invisible translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
+                        <a href="#are" class="block px-4 py-3 hover:bg-white/10 rounded-t-xl">Who We Are</a>
+                        <a href="#exist" class="block px-4 py-3 hover:bg-white/10">Why We Exist</a>
+                        <a href="#vision" class="block px-4 py-3 hover:bg-white/10 rounded-b-xl">Vision & Mission</a>
+                    </div>
+                </div>
+                <a href="#services" class="hover:text-white">Services</a>
+                <a href="#values" class="hover:text-white">Values</a>
+                <a href="portofolio.html" class="hover:text-white">Portfolio</a>
+                <a href="#contact" class="hover:text-white">Contact</a>
+            </div>
+
+            <button id="hamburger-btn" class="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-[5px] rounded-xl hover:bg-white/10 transition" aria-label="Toggle menu">
+                <span id="bar1" class="block w-5 h-[2px] bg-gray-300 transition-all duration-300 origin-center"></span>
+                <span id="bar2" class="block w-5 h-[2px] bg-gray-300 transition-all duration-300"></span>
+                <span id="bar3" class="block w-5 h-[2px] bg-gray-300 transition-all duration-300 origin-center"></span>
+            </button>
+        </div>
+
+        <div id="mobile-menu">
+            <div class="border-t border-white/5 px-4 py-3 flex flex-col text-sm text-gray-300 gap-1">
+                <a href="#home" class="mobile-link px-3 py-2.5 rounded-xl hover:bg-white/10 hover:text-white transition">Home</a>
+                <div>
+                    <button id="mobile-about-btn" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-white/10 hover:text-white transition">
+                        About
+                        <svg id="mobile-about-arrow" class="w-4 h-4 opacity-70 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div id="mobile-about-sub" class="pl-4 flex flex-col gap-1 mt-1">
+                        <a href="#are" class="mobile-link px-3 py-2 rounded-xl hover:bg-white/10 hover:text-white transition text-gray-400">Who We Are</a>
+                        <a href="#exist" class="mobile-link px-3 py-2 rounded-xl hover:bg-white/10 hover:text-white transition text-gray-400">Why We Exist</a>
+                        <a href="#vision" class="mobile-link px-3 py-2 rounded-xl hover:bg-white/10 hover:text-white transition text-gray-400">Vision & Mission</a>
+                    </div>
+                </div>
+                <a href="#services" class="mobile-link px-3 py-2.5 rounded-xl hover:bg-white/10 hover:text-white transition">Services</a>
+                <a href="#values" class="mobile-link px-3 py-2.5 rounded-xl hover:bg-white/10 hover:text-white transition">Values</a>
+                <a href="portfolio.html" class="mobile-link px-3 py-2.5 rounded-xl hover:bg-white/10 hover:text-white transition">Portfolio</a>
+                <a href="#contact" class="mobile-link px-3 py-2.5 rounded-xl hover:bg-white/10 hover:text-white transition mb-1">Contact</a>
+            </div>
+        </div>
+    </div>
+</nav>

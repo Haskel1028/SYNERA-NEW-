@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio – Synera</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        * { font-family: 'Outfit', sans-serif; }
+        body { background-color: #010A14; color: white; }
+        html { scroll-behavior: smooth; }
+
+        section { scroll-margin-top: 120px; }
+
+        /* ===== MOBILE MENU ===== */
+        #mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+        #mobile-menu.open { max-height: 400px; opacity: 1; }
+
+        /* ===== TAB FILTER ===== */
+        .tab-btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            border: 1px solid rgba(255,255,255,0.12);
+            color: #9ca3af;
+            background: rgba(255,255,255,0.04);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            white-space: nowrap;
+        }
+        .tab-btn:hover { color: white; border-color: rgba(249,115,22,0.4); }
+        .tab-btn.active {
+            background: #f97316;
+            border-color: #f97316;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* ===== PORTFOLIO CARD ===== */
+        .portfolio-card {
+            border-radius: 1rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .portfolio-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(249,115,22,0.5);
+            box-shadow: 0 12px 40px rgba(249,115,22,0.1);
+        }
+
+        .portfolio-card .card-img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.15);
+            font-size: 0.75rem;
+        }
+
+        /* Placeholder image block when no real image */
+        .img-placeholder {
+            width: 100%;
+            aspect-ratio: 16/9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 0.2rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        .badge-web { background: rgba(249,115,22,0.15); color: #fb923c; }
+        .badge-motion { background: rgba(139,92,246,0.15); color: #a78bfa; }
+        .badge-promo { background: rgba(20,184,166,0.15); color: #2dd4bf; }
+
+        /* fade-in animation */
+        .portfolio-card {
+            animation: fadeUp 0.4s ease both;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Section anchor highlight line */
+        .section-title-line {
+            display: inline-block;
+            width: 40px;
+            height: 3px;
+            background: #f97316;
+            border-radius: 2px;
+            margin-bottom: 1rem;
+        }
+
+        /* Stats bar */
+        .stat-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="relative overflow-x-hidden">
+
+<!-- BACKGROUND GRADIENT -->
+<div class="fixed inset-0 -z-10 pointer-events-none">
+    <div class="absolute left-1/2 top-20 -translate-x-1/2 w-[980px] h-[460px] bg-gradient-to-tr from-orange-600/30 to-transparent rounded-full blur-3xl"></div>
+    <div class="absolute right-12 bottom-10 w-[420px] h-[220px] bg-gradient-to-bl from-orange-500/30 to-transparent rounded-full blur-2xl"></div>
+    <div class="absolute left-0 top-1/2 w-[300px] h-[300px] bg-gradient-to-br from-purple-800/20 to-transparent rounded-full blur-3xl"></div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="fixed top-5 left-0 right-0 z-50 px-4">
+    <div class="max-w-6xl mx-auto bg-blue/50 backdrop-blur-md border border-white/5 rounded-2xl">
+        <div class="flex items-center justify-between p-3">
+            <a href="index.html">
+                <div class="overflow-hidden rounded-lg">
+                    <img src="./images/logo1.png" class="h-[75px]" alt="Synera Logo">
+                </div>
+            </a>
+
+            <div class="hidden md:flex gap-8 text-sm text-gray-300">
+                <a href="index.html#home" class="hover:text-white">Home</a>
+                <div class="relative group">
+                    <button class="hover:text-white flex items-center gap-1">
+                        About
+                        <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="absolute left-0 mt-3 w-56 bg-black/90 backdrop-blur-xl border border-white/10 rounded-xl opacity-0 invisible translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
+                        <a href="index.html#are" class="block px-4 py-3 hover:bg-white/10 rounded-t-xl">Who We Are</a>
+                        <a href="index.html#exist" class="block px-4 py-3 hover:bg-white/10">Why We Exist</a>
+                        <a href="index.html#vision" class="block px-4 py-3 hover:bg-white/10 rounded-b-xl">Vision & Mission</a>
+                    </div>
+                </div>
+                <a href="index.html#services" class="hover:text-white">Services</a>
+                <a href="index.html#values" class="hover:text-white">Values</a>
+                <a href="portofolio.html" class="text-orange-500 font-semibold">Portfolio</a>
+                <a href="index.html#contact" class="hover:text-white">Contact</a>
+            </div>
+
+            <button id="hamburger-btn" class="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-[5px] rounded-xl hover:bg-white/10 transition" aria-label="Toggle menu">
+                <span id="bar1" class="block w-5 h-[2px] bg-gray-300 transition-all duration-300 origin-center"></span>
+                <span id="bar2" class="block w-5 h-[2px] bg-gray-300 transition-all duration-300"></span>
+                <span id="bar3" class="block w-5 h-[2px] bg-gray-300 transition-all duration-300 origin-center"></span>
+            </button>
+        </div>
+
+        <div id="mobile-menu">
+            <div class="border-t border-white/5 px-4 py-3 flex flex-col text-sm text-gray-300 gap-1">
+                <a href="index.html#home" class="mobile-link px-3 py-2.5 rounded-xl hover:bg-white/10 hover:text-white transition">Home</a>
+                <a href="index.html#services" class="mobile-link px-3 py-2.5 rounded-xl hover:bg-white/10 hover:text-white transition">Services</a>
+                <a href="index.html#values" class="mobile-link px-3 py-2.5 rounded-xl hover:bg-white/10 hover:text-white transition">Values</a>
+                <a href="portfolio.html" class="mobile-link px-3 py-2.5 rounded-xl bg-orange-500/10 text-orange-400 transition mb-1">Portfolio</a>
+                <a href="index.html#contact" class="mobile-link px-3 py-2.5 rounded-xl hover:bg-white/10 hover:text-white transition mb-1">Contact</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="pt-40 pb-16">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+        <div class="section-title-line mx-auto"></div>
+        <h1 class="text-4xl md:text-5xl font-bold mb-5">
+            Our <span class="text-orange-500">Portfolio</span>
+        </h1>
+        <p class="text-gray-400 max-w-xl mx-auto text-lg">
+            A curated showcase of our creative and digital work — from websites to motion to campaigns.
+        </p>
+    </div>
+</section>
+
+<!-- STATS -->
+<section class="pb-16">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="stat-card">
+                <p class="text-3xl font-bold text-orange-500 mb-1">30+</p>
+                <p class="text-gray-400 text-sm">Projects Delivered</p>
+            </div>
+            <div class="stat-card">
+                <p class="text-3xl font-bold text-orange-500 mb-1">20+</p>
+                <p class="text-gray-400 text-sm">Happy Clients</p>
+            </div>
+            <div class="stat-card">
+                <p class="text-3xl font-bold text-orange-500 mb-1">3</p>
+                <p class="text-gray-400 text-sm">Core Services</p>
+            </div>
+            <div class="stat-card">
+                <p class="text-3xl font-bold text-orange-500 mb-1">100%</p>
+                <p class="text-gray-400 text-sm">Client Satisfaction</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FILTER TABS -->
+<section class="pb-10">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="flex flex-wrap gap-3 justify-center">
+            <button class="tab-btn active" data-filter="all">All Work</button>
+            <button class="tab-btn" data-filter="web">Website Development</button>
+            <button class="tab-btn" data-filter="motion">Motion Graphics</button>
+            <button class="tab-btn" data-filter="promo">Promotional Content</button>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== WEBSITE DEVELOPMENT ===================== -->
+<section id="web-dev" class="py-16">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="mb-10">
+            <div class="section-title-line"></div>
+            <div class="flex items-center gap-3 mb-2">
+                <div class="w-10 h-10 flex items-center justify-center rounded-xl bg-orange-500/10 text-orange-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 18l6-6-6-6M8 6l-6 6 6 6"/>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-semibold">Website Development</h2>
+            </div>
+            <p class="text-gray-400 text-sm">Professional, functional, and modern digital experiences.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="web-grid">
+
+            <!-- Card 1 -->
+            <div class="portfolio-card" data-category="web">
+                <div class="img-placeholder" style="background: linear-gradient(135deg, #0f1a2e 0%, #1a2840 100%);">
+                    <svg class="w-10 h-10 text-orange-500/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    <span class="text-xs text-white/20">Add your screenshot here</span>
+                </div>
+                <div class="p-5">
+                    <span class="category-badge badge-web mb-3">Web Dev</span>
+                    <h3 class="font-semibold text-lg mb-1">Brand Landing Page</h3>
+                    <p class="text-sm text-gray-400">A clean, conversion-focused landing page for a growing e-commerce brand with smooth animations and mobile-first design.</p>
+                    <div class="flex gap-2 mt-4 flex-wrap">
+                        <span class="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-400">HTML / CSS</span>
+                        <span class="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-400">JavaScript</span>
+                        <span class="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-400">Responsive</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="portfolio-card" data-category="web">
+                <div class="img-placeholder" style="background: linear-gradient(135deg, #0d1f1a 0%, #122920 100%);">
+                    <svg class="w-10 h-10 text-orange-500/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h18M3 9h18M9 3v18M3 21h18"/>
+                    </svg>
+                    <span class="text-xs text-white/20">Add your screenshot here</span>
+                </div>
+                <div class="p-5">
+                    <span class="category-badge badge-web mb-3">Web Dev</span>
+                    <h3 class="font-semibold text-lg mb-1">Company Profile Site</h3>
+                    <p class="text-sm text-gray-400">Multi-section company profile with interactive service showcase, team bios, and integrated contact form.</p>
+                    <div class="flex gap-2 mt-4 flex-wrap">
+                        <span class="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-400">React</span>
+                        <span class="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-400">Tailwind</span>
+                        <span class="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-400">CMS</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="portfolio-card" data-category="web">
+                <div class="img-placeholder" style="background: linear-gradient(135deg, #1a0d2e 0%, #240f3d 100%);">
+                    <svg class="w-10 h-10 text-orange-500/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                    </svg>
+                    <span class="text-xs text-white/20">Add your screenshot here</span>
+                </div>
+                <div class="p-5">
+                    <span class="category-badge badge-web mb-3">Web Dev</span>
+                    <h3 class="font-semibold text-lg mb-1">E-Commerce Store</h3>
+                    <p class="text-sm text-gray-400">Full-featured online store with product catalog, cart system, and seamless checkout experience optimized for conversions.</p>
+                    <div class="flex gap-2 mt-4 flex-wrap">
+                        <span class="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-400">Next.js</span>
+                        <span class="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-400">Stripe</span>
+                        <span class="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-400">SEO</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ===================== MOTION GRAPHICS ===================== -->
+<section id="motion-graphics" class="py-16 bg-white/[0.02]">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="mb-10">
+            <div class="section-title-line" style="background: #a78bfa;"></div>
+            <div class="flex items-center gap-3 mb-2">
+                <div class="w-10 h-10 flex items-center justify-center rounded-xl bg-purple-500/10 text-purple-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-6.536-3.768A1 1 0 007 8.176v7.648a1 1 0 001.216.976l6.536-3.768a1 1 0 000-1.792z"/>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-semibold">Motion Graphics</h2>
+            </div>
+            <p class="text-gray-400 text-sm">Dynamic visuals that bring brand stories to life.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- Card 1 -->
+            <div class="portfolio-card" data-category="motion">
+                <div class="img-placeholder" style="background: linear-gradient(135deg, #160d2e 0%, #1f1040 100%);">
+                    <svg class="w-10 h-10 text-purple-500/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.069A1 1 0 0121 8.845v6.31a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                    </svg>
+                    <span class="text-xs text-white/20">Add your video thumbnail here</span>
+                </div>
+                <div class="p-5">
+                    <span class="category-badge badge-motion mb-3">Motion</span>
+                    <h3 class="font-semibold text-lg mb-1">Brand Intro Reel</h3>
+                    <p class="text-sm text-gray-400">A cinematic 30-second brand introduction with logo animation, kinetic typography, and a compelling brand narrative.</p>
+                    <div class="flex gap-2 mt-4 flex-wrap">
+                        <span class="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-400">After Effects</span>
+                        <span class="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-400">Premiere Pro</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="portfolio-card" data-category="motion">
+                <div class="img-placeholder" style="background: linear-gradient(135deg, #0d1a2e 0%, #122238 100%);">
+                    <svg class="w-10 h-10 text-purple-500/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 4V20M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"/>
+                    </svg>
+                    <span class="text-xs text-white/20">Add your video thumbnail here</span>
+                </div>
+                <div class="p-5">
+                    <span class="category-badge badge-motion mb-3">Motion</span>
+                    <h3 class="font-semibold text-lg mb-1">Explainer Animation</h3>
+                    <p class="text-sm text-gray-400">A 90-second animated explainer breaking down a complex SaaS product into clear, engaging visual storytelling.</p>
+                    <div class="flex gap-2 mt-4 flex-wrap">
+                        <span class="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-400">2D Animation</span>
+                        <span class="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-400">Illustrator</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="portfolio-card" data-category="motion">
+                <div class="img-placeholder" style="background: linear-gradient(135deg, #1a0a1e 0%, #2a1030 100%);">
+                    <svg class="w-10 h-10 text-purple-500/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                    </svg>
+                    <span class="text-xs text-white/20">Add your video thumbnail here</span>
+                </div>
+                <div class="p-5">
+                    <span class="category-badge badge-motion mb-3">Motion</span>
+                    <h3 class="font-semibold text-lg mb-1">Social Media Loops</h3>
+                    <p class="text-sm text-gray-400">A set of seamlessly looping animated posts designed for Instagram and TikTok — eye-catching and scroll-stopping.</p>
+                    <div class="flex gap-2 mt-4 flex-wrap">
+                        <span class="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-400">Loop Animation</span>
+                        <span class="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-400">Social</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ===================== PROMOTIONAL CONTENT ===================== -->
+<section id="promo-content" class="py-16">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="mb-10">
+            <div class="section-title-line" style="background: #2dd4bf;"></div>
+            <div class="flex items-center gap-3 mb-2">
+                <div class="w-10 h-10 flex items-center justify-center rounded-xl bg-teal-500/10 text-teal-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h4l2-3h6l2 3h4a1 1 0 011 1v12a1 1 0 01-1 1H3a1 1 0 01-1-1V8a1 1 0 011-1zM12 11a3 3 0 100 6 3 3 0 000-6z"/>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-semibold">Promotional Content</h2>
+            </div>
+            <p class="text-gray-400 text-sm">Strategic content that connects brands with their audience.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- Card 1 -->
+            <div class="portfolio-card" data-category="promo">
+                <div class="img-placeholder" style="background: linear-gradient(135deg, #061a18 0%, #0a2420 100%);">
+                    <svg class="w-10 h-10 text-teal-500/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                    <span class="text-xs text-white/20">Add your image here</span>
+                </div>
+                <div class="p-5">
+                    <span class="category-badge badge-promo mb-3">Promo</span>
+                    <h3 class="font-semibold text-lg mb-1">Product Launch Campaign</h3>
+                    <p class="text-sm text-gray-400">Full creative suite for a product launch: social posts, story templates, email headers, and digital ad creatives.</p>
+                    <div class="flex gap-2 mt-4 flex-wrap">
+                        <span class="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-400">Figma</span>
+                        <span class="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-400">Social Ads</span>
+                        <span class="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-400">Branding</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="portfolio-card" data-category="promo">
+                <div class="img-placeholder" style="background: linear-gradient(135deg, #0a1a16 0%, #0d2218 100%);">
+                    <svg class="w-10 h-10 text-teal-500/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/>
+                    </svg>
+                    <span class="text-xs text-white/20">Add your image here</span>
+                </div>
+                <div class="p-5">
+                    <span class="category-badge badge-promo mb-3">Promo</span>
+                    <h3 class="font-semibold text-lg mb-1">Event Promotion Kit</h3>
+                    <p class="text-sm text-gray-400">End-to-end event promotion materials including event posters, countdown stories, and post-event recap content.</p>
+                    <div class="flex gap-2 mt-4 flex-wrap">
+                        <span class="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-400">Photoshop</span>
+                        <span class="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-400">Print + Digital</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="portfolio-card" data-category="promo">
+                <div class="img-placeholder" style="background: linear-gradient(135deg, #081a12 0%, #0c2218 100%);">
+                    <svg class="w-10 h-10 text-teal-500/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                    </svg>
+                    <span class="text-xs text-white/20">Add your image here</span>
+                </div>
+                <div class="p-5">
+                    <span class="category-badge badge-promo mb-3">Promo</span>
+                    <h3 class="font-semibold text-lg mb-1">Social Media Content Pack</h3>
+                    <p class="text-sm text-gray-400">Monthly content calendar with 30 branded posts across Instagram, TikTok, and LinkedIn — all on-strategy and on-brand.</p>
+                    <div class="flex gap-2 mt-4 flex-wrap">
+                        <span class="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-400">Content Strategy</span>
+                        <span class="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-400">Multi-platform</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="py-24">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+        <div class="p-10 rounded-3xl bg-white/5 border border-white/10">
+            <h2 class="text-3xl font-bold mb-4">Ready to Work Together?</h2>
+            <p class="text-gray-400 mb-8">Let's turn your ideas into powerful digital experiences.</p>
+            <a href="index.html#contact"
+               class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-orange-500 hover:bg-orange-400 text-white font-semibold transition-all duration-300 hover:scale-105">
+                Get in Touch
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<script>
+    /* ===== HAMBURGER ===== */
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileMenu   = document.getElementById('mobile-menu');
+    const bar1 = document.getElementById('bar1');
+    const bar2 = document.getElementById('bar2');
+    const bar3 = document.getElementById('bar3');
+
+    hamburgerBtn.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.toggle('open');
+        if (isOpen) {
+            bar1.style.transform = 'translateY(7px) rotate(45deg)';
+            bar2.style.opacity   = '0';
+            bar3.style.transform = 'translateY(-7px) rotate(-45deg)';
+        } else {
+            bar1.style.transform = '';
+            bar2.style.opacity   = '1';
+            bar3.style.transform = '';
+        }
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            bar1.style.transform = '';
+            bar2.style.opacity   = '1';
+            bar3.style.transform = '';
+        });
+    });
+
+    /* ===== FILTER TABS ===== */
+    const tabs = document.querySelectorAll('.tab-btn');
+    const cards = document.querySelectorAll('.portfolio-card');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            const filter = tab.dataset.filter;
+
+            cards.forEach((card, i) => {
+                const cat = card.dataset.category;
+                const show = filter === 'all' || cat === filter;
+
+                if (show) {
+                    card.style.display = '';
+                    card.style.animationDelay = (i * 0.05) + 's';
+                    card.style.animation = 'none';
+                    void card.offsetWidth;
+                    card.style.animation = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            /* Scroll to relevant section */
+            if (filter === 'web')    document.getElementById('web-dev').scrollIntoView({ behavior: 'smooth' });
+            if (filter === 'motion') document.getElementById('motion-graphics').scrollIntoView({ behavior: 'smooth' });
+            if (filter === 'promo')  document.getElementById('promo-content').scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    /* ===== AUTO-ACTIVATE TAB FROM URL HASH ===== */
+    window.addEventListener('load', () => {
+        const hash = window.location.hash;
+        const map = {
+            '#web-dev': 'web',
+            '#motion-graphics': 'motion',
+            '#promo-content': 'promo'
+        };
+        if (map[hash]) {
+            const targetTab = document.querySelector(`[data-filter="${map[hash]}"]`);
+            if (targetTab) targetTab.click();
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synera – One Stop Creative & Digital Partner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        * { font-family: 'Outfit', sans-serif; }
+        body { background-color: #010A14; color: white; }
+        html { scroll-behavior: smooth; }
+        section { scroll-margin-top: 120px; }
+
+        #mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+        #mobile-menu.open { max-height: 400px; opacity: 1; }
+
+        #mobile-about-sub {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        #mobile-about-sub.open { max-height: 200px; }
+
+        /* ===== SERVICE CARD HOVER ===== */
+        .service-card {
+            position: relative;
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            border-color: #f97316;
+            box-shadow: 0 0 0 1px #f97316, 0 8px 40px rgba(249,115,22,0.15);
+            transform: translateY(-3px);
+        }
+
+        /* Arrow circle — bottom right */
+        .service-card .arrow-circle {
+            position: absolute;
+            bottom: 1.25rem;
+            right: 1.25rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
+        }
+
+        .service-card:hover .arrow-circle {
+            background: #f97316;
+            border-color: #f97316;
+            transform: translate(2px, -2px);
+        }
+
+        .service-card .arrow-circle svg {
+            width: 16px;
+            height: 16px;
+            color: rgba(255,255,255,0.5);
+            transition: color 0.3s ease;
+        }
+
+        .service-card:hover .arrow-circle svg {
+            color: white;
+        }
+
+        /* Icon box glow on hover */
+        .service-card:hover .icon-box {
+            background: rgba(249,115,22,0.2);
+        }
+
+        .icon-box {
+            transition: background 0.35s ease;
+        }
+    </style>
+</head>
+
+<body class="relative overflow-x-hidden">
+
+<!-- BACKGROUND GRADIENT -->
+<div class="fixed inset-0 -z-10 pointer-events-none">
+    <div class="absolute left-1/2 top-20 -translate-x-1/2 w-[980px] h-[460px] bg-gradient-to-tr from-orange-600/40 to-transparent rounded-full blur-3xl"></div>
+    <div class="absolute right-12 bottom-10 w-[420px] h-[220px] bg-gradient-to-bl from-orange-500/40 to-transparent rounded-full blur-2xl"></div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="fixed top-5 left-0 right-0 z-50 px-4">
+    <div class="max-w-6xl mx-auto bg-blue/50 backdrop-blur-md border border-white/5 rounded-2xl">
+        <div class="flex items-center justify-between p-3">
+            <a href="#home">
+                <div class="overflow-hidden rounded-lg">
+                    <img src="./images/logo1.png" class="h-[75px]" alt="Synera Logo">
+                </div>
+            </a>
+
+            <div class="hidden md:flex gap-8 text-sm text-gray-300">
+                <a href="#home" class="hover:text-white">Home</a>
+                <div class="relative group">
+                    <button class="hover:text-white flex items-center gap-1">
+                        About
+                        <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="absolute left-0 mt-3 w-56 bg-black/90 backdrop-blur-xl border border-white/10 rounded-xl opacity-0 invisible translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
+                        <a href="#are" class="block px-4 py-3 hover:bg-white/10 rounded-t-xl">Who We Are</a>
+                        <a href="#exist" class="block px-4 py-3 hover:bg-white/10">Why We Exist</a>
+                        <a href="#vision" class="block px-4 py-3 hover:bg-white/10 rounded-b-xl">Vision & Mission</a>
+                    </div>
+                </div>
+                <a href="#services" class="hover:text-white">Services</a>
+                <a href="#values" class="hover:text-white">Values</a>
+                <a href="portofolio.html" class="hover:text-white">Portfolio</a>
+                <a href="#contact" class="hover:text-white">Contact</a>
+            </div>
+
+            <button id="hamburger-btn" class="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-[5px] rounded-xl hover:bg-white/10 transition" aria-label="Toggle menu">
+                <span id="bar1" class="block w-5 h-[2px] bg-gray-300 transition-all duration-300 origin-center"></span>
+                <span id="bar2" class="block w-5 h-[2px] bg-gray-300 transition-all duration-300"></span>
+                <span id="bar3" class="block w-5 h-[2px] bg-gray-300 transition-all duration-300 origin-center"></span>
+            </button>
+        </div>
+
+        <div id="mobile-menu">
+            <div class="border-t border-white/5 px-4 py-3 flex flex-col text-sm text-gray-300 gap-1">
+                <a href="#home" class="mobile-link px-3 py-2.5 rounded-xl hover:bg-white/10 hover:text-white transition">Home</a>
+                <div>
+                    <button id="mobile-about-btn" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-white/10 hover:text-white transition">
+                        About
+                        <svg id="mobile-about-arrow" class="w-4 h-4 opacity-70 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div id="mobile-about-sub" class="pl-4 flex flex-col gap-1 mt-1">
+                        <a href="#are" class="mobile-link px-3 py-2 rounded-xl hover:bg-white/10 hover:text-white transition text-gray-400">Who We Are</a>
+                        <a href="#exist" class="mobile-link px-3 py-2 rounded-xl hover:bg-white/10 hover:text-white transition text-gray-400">Why We Exist</a>
+                        <a href="#vision" class="mobile-link px-3 py-2 rounded-xl hover:bg-white/10 hover:text-white transition text-gray-400">Vision & Mission</a>
+                    </div>
+                </div>
+                <a href="#services" class="mobile-link px-3 py-2.5 rounded-xl hover:bg-white/10 hover:text-white transition">Services</a>
+                <a href="#values" class="mobile-link px-3 py-2.5 rounded-xl hover:bg-white/10 hover:text-white transition">Values</a>
+                <a href="portofolio.html" class="mobile-link px-3 py-2.5 rounded-xl hover:bg-white/10 hover:text-white transition">Portfolio</a>
+                <a href="#contact" class="mobile-link px-3 py-2.5 rounded-xl hover:bg-white/10 hover:text-white transition mb-1">Contact</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section id="home" class="pt-32 min-h-screen flex items-center">
+    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+        <div>
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                Get Started Today<br>
+                <span class="text-orange-500">Building Integrated Digital Solutions</span>
+            </h1>
+            <p class="text-gray-300 mb-8">
+                We provide a wide range of creative and digital solutions for growing brands and startups through integrated website development, motion graphics, and promotional content—delivered by a team of experts.
+            </p>
+        </div>
+        <img src="images/foto_home_page (1).jpg" class="rounded-3xl border border-white/10" alt="Creative Team">
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section id="are" class="py-24">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+        <h2 class="text-3xl font-semibold mb-6">Who We Are</h2>
+        <p class="text-gray-300 mb-6">
+            Synera is a One Stop Creative & Digital Partner that helps brands and startups build strong digital identities, systems, and communication.
+            We exist as an innovative and adaptive solution for businesses that need integrated creative and technology support.
+        </p>
+    </div>
+</section>
+
+<section id="exist" class="py-24">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+        <h2 class="text-3xl font-semibold mb-6">Why We Exist</h2>
+        <p class="text-gray-300 mb-6">
+            Synera was founded because many businesses have great potential, but need a strategic partner to turn ideas into real creative and digital solutions.
+            We help brands grow through integrated identity, communication, and digital systems in an ever-evolving digital era.
+        </p>
+    </div>
+</section>
+
+<!-- Vision & Mission -->
+<section id="vision" class="py-24">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-semibold">Vision & Mission</h2>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="p-8 rounded-2xl bg-white/5 border border-white/10">
+                <h3 class="text-xl font-semibold mb-4 text-orange-500">Our Vision</h3>
+                <p class="text-gray-300 leading-relaxed">
+                    To become a leading One Stop Creative & Digital Partner in delivering innovative, integrated, and adaptive creative solutions and technology systems.
+                </p>
+            </div>
+            <div class="p-8 rounded-2xl bg-white/5 border border-white/10">
+                <h3 class="text-xl font-semibold mb-4 text-orange-500">Our Mission</h3>
+                <ul class="space-y-3 text-gray-300 list-disc list-inside">
+                    <li>Develop technology-driven and integrated system solutions.</li>
+                    <li>Prioritize creativity, collaboration, and sustainability in every production.</li>
+                    <li>Connect various components into one strong and cohesive ecosystem.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="py-24">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-semibold">What We Do</h2>
+            <p class="text-gray-400 mt-3 text-sm">Click any service to explore our portfolio</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+
+            <!-- WEBSITE DEVELOPMENT -->
+            <a href="portofolio.html#web-dev" class="service-card">
+                <div class="icon-box w-12 h-12 mb-4 flex items-center justify-center rounded-xl bg-orange-500/10 text-orange-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 18l6-6-6-6M8 6l-6 6 6 6"/>
+                    </svg>
+                </div>
+                <h3 class="font-semibold mb-3 pr-10">Website Development</h3>
+                <p class="text-sm text-gray-300 pr-10">
+                    Building professional, functional, and modern websites tailored to each brand's needs.
+                </p>
+                <div class="arrow-circle">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7v10"/>
+                    </svg>
+                </div>
+            </a>
+
+            <!-- MOTION GRAPHICS -->
+            <a href="portofolio.html#motion-graphics" class="service-card">
+                <div class="icon-box w-12 h-12 mb-4 flex items-center justify-center rounded-xl bg-orange-500/10 text-orange-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-6.536-3.768A1 1 0 007 8.176v7.648a1 1 0 001.216.976l6.536-3.768a1 1 0 000-1.792z"/>
+                    </svg>
+                </div>
+                <h3 class="font-semibold mb-3 pr-10">Motion Graphics</h3>
+                <p class="text-sm text-gray-300 pr-10">
+                    Bringing brand messages to life through dynamic, engaging, and easy-to-understand visuals.
+                </p>
+                <div class="arrow-circle">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7v10"/>
+                    </svg>
+                </div>
+            </a>
+
+            <!-- PROMOTIONAL CONTENT -->
+            <a href="portofolio.html#promo-content" class="service-card">
+                <div class="icon-box w-12 h-12 mb-4 flex items-center justify-center rounded-xl bg-orange-500/10 text-orange-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h4l2-3h6l2 3h4a1 1 0 011 1v12a1 1 0 01-1 1H3a1 1 0 01-1-1V8a1 1 0 011-1zM12 11a3 3 0 100 6 3 3 0 000-6z"/>
+                    </svg>
+                </div>
+                <h3 class="font-semibold mb-3 pr-10">Promotional Content</h3>
+                <p class="text-sm text-gray-300 pr-10">
+                    Creating relevant and strategic promotional content that effectively reaches the target audience.
+                </p>
+                <div class="arrow-circle">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7v10"/>
+                    </svg>
+                </div>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+<!-- VALUES -->
+<section id="values" class="py-24 bg-white/5">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+        <h2 class="text-3xl font-semibold mb-10">Our Values</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="flex items-center bg-white/10 p-4 rounded-xl">
+                <div class="w-12 h-12 flex items-center justify-center bg-orange-500/10 text-orange-500 rounded-full mr-4 shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2a7 7 0 00-7 7c0 3.866 3 7 7 7s7-3.134 7-7a7 7 0 00-7-7zm0 14v4m-2 0h4"/>
+                    </svg>
+                </div>
+                <div class="text-left">
+                    <h3 class="font-semibold text-lg">Innovation with Purpose</h3>
+                    <p class="text-gray-300 text-sm">Creative ideas that are actionable and impactful.</p>
+                </div>
+            </div>
+            <div class="flex items-center bg-white/10 p-4 rounded-xl">
+                <div class="w-12 h-12 flex items-center justify-center bg-orange-500/10 text-orange-500 rounded-full mr-4 shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12M6 12h12M6 6l12 12M6 18l12-12"/>
+                    </svg>
+                </div>
+                <div class="text-left">
+                    <h3 class="font-semibold text-lg">Integrated Solutions</h3>
+                    <p class="text-gray-300 text-sm">Identity, systems, and communication connected as one.</p>
+                </div>
+            </div>
+            <div class="flex items-center bg-white/10 p-4 rounded-xl">
+                <div class="w-12 h-12 flex items-center justify-center bg-orange-500/10 text-orange-500 rounded-full mr-4 shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 10l4 2-2-4-4-2 2 4z"/>
+                    </svg>
+                </div>
+                <div class="text-left">
+                    <h3 class="font-semibold text-lg">Adaptive & Future-Ready</h3>
+                    <p class="text-gray-300 text-sm">Flexible and prepared for any digital change.</p>
+                </div>
+            </div>
+            <div class="flex items-center bg-white/10 p-4 rounded-xl">
+                <div class="w-12 h-12 flex items-center justify-center bg-orange-500/10 text-orange-500 rounded-full mr-4 shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 8l5-2v10l-5-2M4 12h11"/>
+                    </svg>
+                </div>
+                <div class="text-left">
+                    <h3 class="font-semibold text-lg">Clarity in Communication</h3>
+                    <p class="text-gray-300 text-sm">Delivering clear, consistent, and strong messaging.</p>
+                </div>
+            </div>
+            <div class="flex items-center bg-white/10 p-4 rounded-xl md:col-span-2 md:justify-center md:max-w-md md:mx-auto">
+                <div class="w-12 h-12 flex items-center justify-center bg-orange-500/10 text-orange-500 rounded-full mr-4 shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 12l6 6 6-6M6 12l6-6 6 6"/>
+                    </svg>
+                </div>
+                <div class="text-left">
+                    <h3 class="font-semibold text-lg">Collaborative Partnership</h3>
+                    <p class="text-gray-300 text-sm">Working hand-in-hand with clients to grow together.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="py-24">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+        <h2 class="text-3xl font-semibold mb-6">Contact Us</h2>
+        <p class="text-gray-400 mb-10">Find us on these platforms</p>
+        <div class="flex flex-wrap justify-center gap-6">
+            <a href="https://www.linkedin.com/in/synera-corp-594605400" target="_blank" class="flex items-center gap-3 px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:bg-white/10 transition">
+                <!-- LinkedIn Icon (BENAR) -->
+                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-orange-500" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M6.94 6.5A2.44 2.44 0 114.5 4.06 2.44 2.44 0 016.94 6.5zM4.75 8.75h4.38V19.5H4.75zM10.88 8.75h4.2v1.47h.06a4.6 4.6 0 014.14-2.27c4.43 0 5.25 2.91 5.25 6.69v7.86h-4.38v-6.97c0-1.66-.03-3.8-2.32-3.8-2.33 0-2.69 1.82-2.69 3.68v7.09h-4.38z"/>
+                 </svg>
+                 LinkedIn
+            </a>
+            <a href="mailto:syneracorps@gmail.com" class="flex items-center gap-3 px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:bg-white/10 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l9 6 9-6M4 6h16a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2z"/>
+                </svg>
+                syneracorps@gmail.com
+            </a>
+            <a href="https://www.instagram.com/syneracorp?igsh=aHVhNW9rZWU3emsw&utm_source=qr" target="_blank" class="flex items-center gap-3 px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:bg-white/10 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-orange-500" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 1.5A4.25 4.25 0 003.5 7.75v8.5A4.25 4.25 0 007.75 20.5h8.5a4.25 4.25 0 004.25-4.25v-8.5A4.25 4.25 0 0016.25 3.5h-8.5z"/>
+                    <path d="M12 7a5 5 0 100 10 5 5 0 000-10zm0 1.5a3.5 3.5 0 110 7 3.5 3.5 0 010-7z"/>
+                    <circle cx="17.5" cy="6.5" r="1"/>
+                </svg>
+                Instagram
+            </a>
+            <a href="https://www.tiktok.com/@syneracorp?_r=1&_t=ZS-93uWatVTno9" target="_blank" class="flex items-center gap-3 px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:bg-white/10 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-orange-500" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16 2c.3 2.2 1.7 3.8 4 4v4c-1.9.1-3.6-.6-4.9-1.7v6.7a6.3 6.3 0 11-6.1-6.3c.5 0 1 .1 1.5.2v4.2a2.3 2.3 0 10 1.6 2.2V2h3.9z"/>
+                </svg>
+                TikTok
+            </a>
+        </div>
+    </div>
+</section>
+
+<script>
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileMenu   = document.getElementById('mobile-menu');
+    const bar1 = document.getElementById('bar1');
+    const bar2 = document.getElementById('bar2');
+    const bar3 = document.getElementById('bar3');
+
+    hamburgerBtn.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.toggle('open');
+        if (isOpen) {
+            bar1.style.transform = 'translateY(7px) rotate(45deg)';
+            bar2.style.opacity   = '0';
+            bar3.style.transform = 'translateY(-7px) rotate(-45deg)';
+        } else {
+            bar1.style.transform = '';
+            bar2.style.opacity   = '1';
+            bar3.style.transform = '';
+        }
+    });
+
+    const mobileAboutBtn   = document.getElementById('mobile-about-btn');
+    const mobileAboutSub   = document.getElementById('mobile-about-sub');
+    const mobileAboutArrow = document.getElementById('mobile-about-arrow');
+
+    mobileAboutBtn.addEventListener('click', () => {
+        const isOpen = mobileAboutSub.classList.toggle('open');
+        mobileAboutArrow.style.transform = isOpen ? 'rotate(180deg)' : '';
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            bar1.style.transform = '';
+            bar2.style.opacity   = '1';
+            bar3.style.transform = '';
+        });
+    });
+</script>
+
+</body>
+</html>
